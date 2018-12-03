@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>风赢员工用API说明文档</title>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+<link rel="stylesheet" href="https://libs.baidu.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link href="help.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="bs-docs-header" id="content" tabindex="-1">
+    <div class="container">
+      <h1>风赢员工用API说明文档</h1>
+      <p>2018.4.2 V1.0 by Y·H</p>
+    </div>
+  </div>
+
+  <div class="container bs-docs-container">
+    <div class="row">
+      <div class="col-md-9" role="main">
+        <div class="bs-docs-section">
+
+          <h3 id="common">概要说明</h3>
+          <h2></h2>
+          <pre>
+            <b>API访问地址</b>
+              正式服：http://www.fnying.com/staff/api/
+
+            <b>返回数据格式</b>
+              json
+
+            <b>异常返回</b>
+              errcode 返回码
+              errmsg  失败信息
+
+              常见错误码：
+              -1  系统繁忙，稍候再试
+              110 服务异常中断，请与管理员联系
+              120 参数错误
+          </pre>
+
+          <h3 id="sign">员工注册</h3>
+          <h2><a href='http://www.fnying.com/staff/api/sign.php' target='api'>http://www.fnying.com/staff/api/sign.php</a></h2>
+          <pre>
+            <b>GET参数</b>
+              staff_name      员工姓名
+              staff_phone     员工电话
+
+            <b>返回</b>
+              errcode = 0 请求成功
+
+            <b>说明</b>
+              风赢科技员工注册
+
+          </pre>
+
+          <h3 id="staff_info_list">员工情报一览</h3>
+          <h2><a href='http://www.fnying.com/staff/api/staff_info_list.php' target='api'>http://www.fnying.com/staff/api/staff_info_list.php</a></h2>
+          <pre>
+            <b>参数</b>
+              无
+              
+            <b>返回</b>
+              total     总记录件数
+              rows      记录数组
+                staff_id          员工ID
+                staff_cd          员工工号
+                staff_name        员工姓名
+                nick_name         昵称（英文名）
+                staff_avata       员工头像
+                staff_sex         员工性别（0不明 1男 2女）
+                staff_position    员工职位
+                staff_mbti        员工性格（MBTI）
+                staff_memo        员工个人简介
+                staff_age         年龄（女性显示保密）
+                staff_star_sign   星座
+                online_status     在线状态（0签出 1签入）
+                staff_subsidy     本周补助
+                exp_balance       经费余额（分）
+                join_date         加入时间
+                
+            <b>说明</b>
+
+          </pre>
+          
+          <h3 id="staff_info_edit">员工情报修改</h3>
+          <h2><a href='http://www.fnying.com/staff/api/staff_info_edit.php' target='api'>http://www.fnying.com/staff/api/staff_info_edit.php</a></h2>
+          <pre>
+            <b>GET参数</b>
+              staff_avata       员工头像
+              nick_name         昵称（英文名）
+              staff_position    员工职位
+              staff_sex         员工性别（0不明 1男 2女）
+              staff_mbti        员工性格（MBTI）
+              staff_memo        员工个人简介
+              staff_phone       员工手机
+              identity          身份证件号
+              birth_year        出生年份
+              birth_day         生日
+
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+              只有本人才能修改
+
+          </pre>
+
+          <h3 id="get_my_info">获得员工本人情报</h3>
+          <h2><a href='http://www.fnying.com/staff/api/get_my_info.php' target='api'>http://www.fnying.com/staff/api/get_my_info.php</a></h2>
+          <pre>
+            <b>参数</b>
+              无
+              
+            <b>返回</b>
+              staff_id          员工ID
+              staff_cd          员工工号
+              staff_name        员工姓名
+              nick_name         昵称（英文名）
+              staff_avata       员工头像
+              staff_position    员工职位
+              staff_sex         员工性别（0不明 1男 2女）
+              staff_mbti        员工性格（MBTI）
+              staff_memo        员工个人简介
+              staff_phone       员工手机
+              identity          身份证件号
+              birth_year        出生年份
+              birth_day         生日
+              join_date         加入时间
+                
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="task_list">任务一览</h3>
+          <h2><a href='http://www.fnying.com/staff/api/task_list.php?staff_id=640C3986-5EC2-EABA-59C1-B9C6EC4FF610' target='api'>http://www.fnying.com/staff/api/task_list.php</a></h2>
+          <pre>
+            <b>GET参数</b>
+              staff_id      员工ID
+              task_type     任务类型（1:创建,2:责任,4:监督,5:创建+监督,7:所有）默认7
+              public_type   公开类型（1:私人,2:公开,3:所有）默认2
+              limit         （记录条数，可选）默认10 最大100
+              offset        （记录偏移量，可选）默认0 与limit参数一起分页使用。如设置 offset=20&limit=10 取第21-30条记录
+
+            <b>返回</b>
+              total     总记录件数
+              rows      记录数组
+                task_id         任务ID
+                task_name       任务
+                task_intro      任务内容
+                owner_id        创建人ID
+                owner_name      创建人
+                respo_id        责任人ID
+                respo_name      责任人
+                check_id        监督人ID
+                check_name      监督人
+                task_level      任务等级（0 可选 1 一般 2 重要 3 非常重要）
+                task_value      任务价值
+                task_perc       任务进度
+                task_status     任务状态（0 废止 1 完成 2 执行 3 等待）
+                limit_time      任务期限
+                utime           更新时间
+                ctime           创建时间
+
+            <b>说明</b>
+              本人相关任务一览
+
+          </pre>
+          
+          <h3 id="task_edit">任务修改</h3>
+          <h2><a href='http://www.fnying.com/staff/api/task_edit.php' target='api'>http://www.fnying.com/staff/api/task_edit.php</a></h2>
+          <pre>
+            <b>GET参数</b>
+              task_id         任务ID
+              task_name       任务
+              task_intro      任务内容
+              respo_name      责任人
+              check_name      监督人
+              task_level      任务等级
+              task_value      任务价值
+              task_perc       任务进度
+              task_status     任务状态
+              limit_time      任务期限
+              
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+              权限不同，可修改的项目不同
+
+          </pre>
+          
+          
+          <h3 id="office_sign">办公室签到</h3>
+          <h2><a href='http://www.fnying.com/staff/api/office_sign.php' target='api'>http://www.fnying.com/staff/api/office_sign.php</a></h2>
+          <pre>
+            <b>GET参数</b>
+              sign_type           签到类型
+              latitude            纬度
+              longitude           经度
+
+            <b>返回</b>
+              errcode = 0     请求成功
+
+            <b>说明</b>
+              风赢科技员工签到
+          </pre>
+
+          <h3 id="office_sign_log">办公室签到记录</h3>
+          <h2><a href='http://www.fnying.com/staff/api/office_sign_log.php' target='api'>http://www.fnying.com/staff/api/office_sign_log.php</a></h2>
+          <pre>
+            <b>Get参数</b>
+              limit     （记录条数，可选）默认10 最大100
+              offset    （记录偏移量，可选）默认0 与limit参数一起分页使用。如设置 offset=20&limit=10 取第21-30条记录
+
+            <b>返回</b>
+              total     总记录件数
+              rows      记录数组
+                log_id      签到日志ID
+                staff_name  员工姓名
+                sign_type   签到类型
+                ctime       签到时间
+
+            <b>说明</b>
+
+          </pre>
+
+          <h3 id="get_current_subsidy">获得员工本周补贴明细</h3>
+          <h2><a href='http://www.fnying.com/staff/api/get_current_subsidy.php?staff_id=640C3986-5EC2-EABA-59C1-B9C6EC4FF610' target='api'>http://www.fnying.com/staff/api/get_current_subsidy.php</a></h2>
+          <pre>
+            <b>参数</b>
+              staff_id          员工ID
+              
+            <b>返回</b>
+              total     总记录件数
+              sum       合计补助金额
+              rows      记录数组
+                sign_date         考勤日期
+                time_begin        签到时间
+                time_end          签出时间
+                commute_subsidy   交通补助金额
+                lunch_subsidy     午餐补助金额
+                dinner_subsidy    晚餐补助金额
+                
+            <b>说明</b>
+
+          </pre>
+
+        </div>
+
+      </div>
+
+
+      <div class="col-md-3" role="complementary">
+        <nav class="bs-docs-sidebar hidten-print hidten-xs hidten-sm fixmenu">
+          <ul class="nav bs-docs-sidenav">
+            <li><a href="#common"><b>概要说明</b></a></li>
+            <li>------------------------------------------</li>
+            <li><a href="#sign"><b class="text-success">员工注册</b></a></li>
+            <li><a href="#staff_info_list"><b class="text-success">员工情报一览</b></a></li>
+            <li><a href="#staff_info_edit"><b class="text-success">员工情报修改</b></a></li>
+            <li><a href="#get_my_info"><b class="text-success">获得员工本人情报</b></a></li>
+            <li><a href="#task_list"><b class="text-success">任务一览</b></a></li>
+            <li><a href="#task_edit"><b class="text-success">任务修改</b></a></li>
+            <li><a href="#task_add"><b class="text-success">任务创建</b></a></li>
+            <li><a href="#office_sign"><b class="text-success">办公室签到</b></a></li>
+            <li><a href="#office_sign_log"><b class="text-success">办公室签到记录</b></a></li>
+            <li><a href="#get_current_subsidy"><b class="text-success">获得员工本周补贴明细</b></a></li>
+          </ul>
+        </nav>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="http://libs.baidu.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+
+
